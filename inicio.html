@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Cumpleaños 🎂</title>
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <style>
+    .oculto {
+        opacity: 0;
+        transition: opacity 2.5s ease-in-out;
+    }
+    .visible {
+        opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="contenido-completo" class="oculto">
+    
+    <h1>🎉 Feliz Cumpleaños 🎉</h1>
+    <p>QUE VIVA LA cumpleañera 💖</p>
+
+    <div class="menu-botones">
+      <a href="mensaje.html" class="btn">🎂 Mensaje</a>
+      <a href="galeria.html" class="btn">📸 Galería</a>
+      <a href="video.html" class="btn">🎥 Video</a>
+    </div>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const contenido = document.getElementById('contenido-completo');
+        setTimeout(() => {
+            contenido.classList.remove('oculto');
+            contenido.classList.add('visible');
+        }, 300);
+    });
+  </script>
+
+</body>
+</html>

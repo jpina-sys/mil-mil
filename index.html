@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Para ti mi amor!</title>
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <style>
+    body.fondo-stitch { 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .titulo-animado {
+      margin-bottom: 40px;
+      perspective: 1000px;
+    }
+
+    .titulo-animado h1 {
+      font-size: 58px;
+      margin: 10px 0;
+      font-weight: bold;
+      text-shadow: 0 0 30px #ff0099, 0 0 60px #ff69b4, 0 0 90px #ff1493;
+      letter-spacing: 3px;
+    }
+
+    /* Animaciones desde los lados */
+    .linea1 { 
+      animation: slideInLeft 1.5s ease-out forwards;
+      opacity: 0;
+    }
+
+    .linea2 { 
+      animation: slideInRight 1.5s ease-out 0.8s forwards;
+      opacity: 0;
+    }
+
+    .linea3 { 
+      animation: slideInLeft 1.5s ease-out 1.6s forwards;
+      opacity: 0;
+      font-size: 48px;
+      color: #ffb6c1;
+    }
+
+    .linea4 { 
+      animation: slideInRight 1.5s ease-out 2.4s forwards;
+      opacity: 0;
+      font-size: 48px;
+      color: #ffc0cb;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-100%) rotateY(-90deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) rotateY(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(100%) rotateY(90deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) rotateY(0);
+      }
+    }
+
+    /* Mensaje cariñoso */
+    .mensaje-amor {
+      font-size: 24px;
+      margin: 30px 0;
+      opacity: 0;
+      animation: fadeInUp 1.5s ease-out 3.2s forwards;
+      color: #ffe4e1;
+      text-shadow: 0 0 10px rgba(255,182,193,0.8);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Corazones flotantes */
+    .corazones {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .corazon {
+      position: absolute;
+      font-size: 30px;
+      animation: flotar 6s infinite ease-in-out;
+      opacity: 0.6;
+    }
+
+    .corazon:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .corazon:nth-child(2) { left: 30%; animation-delay: 1s; }
+    .corazon:nth-child(3) { left: 50%; animation-delay: 2s; }
+    .corazon:nth-child(4) { left: 70%; animation-delay: 3s; }
+    .corazon:nth-child(5) { left: 90%; animation-delay: 4s; }
+
+    @keyframes flotar {
+      0% {
+        transform: translateY(100vh) scale(0.5) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.8;
+        transform: translateY(50vh) scale(1) rotate(180deg);
+      }
+      100% {
+        transform: translateY(-20vh) scale(0.5) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Botón mejorado */
+    .btn-inicio {
+      padding: 20px 50px;
+      font-size: 28px;
+      margin-top: 40px;
+      opacity: 0;
+      animation: bounceIn 1s ease-out 4s forwards;
+      position: relative;
+      z-index: 10;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(-180deg);
+      }
+      50% {
+        transform: scale(1.1) rotate(10deg);
+      }
+      70% {
+        transform: scale(0.9) rotate(-5deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    .btn-inicio:hover {
+      animation: pulse 0.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .titulo-animado h1 {
+        font-size: 36px;
+      }
+      .linea3, .linea4 {
+        font-size: 32px;
+      }
+      .mensaje-amor {
+        font-size: 18px;
+        padding: 0 20px;
+      }
+      .btn-inicio {
+        font-size: 22px;
+        padding: 15px 35px;
+      }
+    }
+  </style>
+</head>
+<body class="fondo-stitch">
+
+  <!-- Corazones flotantes -->
+  <div class="corazones">
+    <div class="corazon">💖</div>
+    <div class="corazon">💕</div>
+    <div class="corazon">💗</div>
+    <div class="corazon">💝</div>
+    <div class="corazon">💓</div>
+  </div>
+
+  <!-- Título animado -->
+  <div class="titulo-animado">
+    <h1 class="linea1">✨ Feliz Cumpleaños ✨</h1>
+    <h1 class="linea2">💖 Mildred Stefania 💖</h1>
+    <h1 class="linea3">🌹 de los Ángeles 🌹</h1>
+    <h1 class="linea4">🎂 Mite 🎂</h1>
+  </div>
+
+  <!-- Mensaje cariñoso -->
+  <p class="mensaje-amor">
+    Hoy es tu día especial, y quiero que sepas<br>
+    que eres la persona más importante de mi vida 💕
+  </p>
+
+  <!-- Botón de inicio -->
+  <a href="inicio.html" class="btn-inicio btn"> 🎉 ¡Ver tu sorpresa! 🎉</a>
+
+</body>
+</html>
