@@ -14,9 +14,38 @@
     .visible {
         opacity: 1;
     }
+    
+    /* Botón volver personalizado */
+    .btn-volver {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        padding: 12px 25px;
+        background: rgba(255,0,153,0.9);
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 18px;
+        box-shadow: 0 0 20px rgba(255,0,153,0.6);
+        transition: all 0.3s ease;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-volver:hover {
+        background: rgba(0,255,255,0.9);
+        box-shadow: 0 0 30px rgba(0,255,255,0.8);
+        transform: scale(1.1);
+    }
   </style>
 </head>
 <body>
+
+  <!-- Botón Volver a la página principal -->
+  <a href="index.html" class="btn-volver">⬅ Volver</a>
 
   <div id="contenido-completo" class="oculto">
     
@@ -31,7 +60,18 @@
 
   </div>
 
+  <!-- Reproductor de música (oculto) -->
+  <audio id="musicaFondo" loop>
+    <source src="bts.mp3/BTS Singing Happy Birthday.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Botón para controlar la música -->
+  <button id="btnMusica" class="control-musica">
+    <span id="iconoMusica">🔊</span>
+  </button>
+
   <script>
+    // Mostrar contenido con animación
     document.addEventListener('DOMContentLoaded', () => {
         const contenido = document.getElementById('contenido-completo');
         setTimeout(() => {
@@ -39,6 +79,68 @@
             contenido.classList.add('visible');
         }, 300);
     });
+
+    // Control de música
+    const musica = document.getElementById('musicaFondo');
+    const btnMusica = document.getElementById('btnMusica');
+    const iconoMusica = document.getElementById('iconoMusica');
+    let musicaReproduciendo = false;
+
+    // Verificar si la música estaba sonando en la página anterior
+    const musicaActiva = localStorage.getItem('musicaActiva');
+    const tiempoMusica = localStorage.getItem('tiempoMusica');
+
+    // Intentar continuar la música desde donde se quedó
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        musica.volume = 0.6;
+        
+        // Si había música activa, continuar desde el tiempo guardado
+        if (musicaActiva === 'true' && tiempoMusica) {
+          musica.currentTime = parseFloat(tiempoMusica);
+        }
+        
+        musica.play().then(() => {
+          musicaReproduciendo = true;
+          iconoMusica.textContent = '🔊';
+          btnMusica.classList.add('reproduciendo');
+        }).catch(() => {
+          musicaReproduciendo = false;
+          iconoMusica.textContent = '🔇';
+          btnMusica.classList.remove('reproduciendo');
+        });
+      }, 500);
+    });
+
+    // Toggle música al hacer clic en el botón
+    btnMusica.addEventListener('click', () => {
+      if (musicaReproduciendo) {
+        musica.pause();
+        iconoMusica.textContent = '🔇';
+        musicaReproduciendo = false;
+        btnMusica.classList.remove('reproduciendo');
+      } else {
+        musica.play();
+        iconoMusica.textContent = '🔊';
+        musicaReproduciendo = true;
+        btnMusica.classList.add('reproduciendo');
+      }
+    });
+
+    // Guardar estado de música al cambiar de página
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('musicaActiva', musicaReproduciendo);
+      if (musicaReproduciendo) {
+        localStorage.setItem('tiempoMusica', musica.currentTime);
+      }
+    });
+
+    // Actualizar tiempo cada 500ms para mejor continuidad
+    setInterval(() => {
+      if (musicaReproduciendo) {
+        localStorage.setItem('tiempoMusica', musica.currentTime);
+      }
+    }, 500);
   </script>
 
 </body>

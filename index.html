@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>¡Para ti mi amor!</title>
   <link rel="stylesheet" href="css/styles.css">
-  
+
   <style>
     body.fondo-stitch { 
       display: flex;
@@ -31,54 +31,21 @@
       letter-spacing: 3px;
     }
 
-    /* Animaciones desde los lados */
-    .linea1 { 
-      animation: slideInLeft 1.5s ease-out forwards;
-      opacity: 0;
-    }
-
-    .linea2 { 
-      animation: slideInRight 1.5s ease-out 0.8s forwards;
-      opacity: 0;
-    }
-
-    .linea3 { 
-      animation: slideInLeft 1.5s ease-out 1.6s forwards;
-      opacity: 0;
-      font-size: 48px;
-      color: #ffb6c1;
-    }
-
-    .linea4 { 
-      animation: slideInRight 1.5s ease-out 2.4s forwards;
-      opacity: 0;
-      font-size: 48px;
-      color: #ffc0cb;
-    }
+    .linea1 { animation: slideInLeft 1.5s ease-out forwards; opacity: 0; }
+    .linea2 { animation: slideInRight 1.5s ease-out 0.8s forwards; opacity: 0; }
+    .linea3 { animation: slideInLeft 1.5s ease-out 1.6s forwards; opacity: 0; font-size: 48px; color: #ffb6c1; }
+    .linea4 { animation: slideInRight 1.5s ease-out 2.4s forwards; opacity: 0; font-size: 48px; color: #ffc0cb; }
 
     @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-100%) rotateY(-90deg);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0) rotateY(0);
-      }
+      from { opacity: 0; transform: translateX(-100%) rotateY(-90deg); }
+      to { opacity: 1; transform: translateX(0) rotateY(0); }
     }
 
     @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(100%) rotateY(90deg);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0) rotateY(0);
-      }
+      from { opacity: 0; transform: translateX(100%) rotateY(90deg); }
+      to { opacity: 1; transform: translateX(0) rotateY(0); }
     }
 
-    /* Mensaje cariñoso */
     .mensaje-amor {
       font-size: 24px;
       margin: 30px 0;
@@ -89,17 +56,10 @@
     }
 
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Corazones flotantes */
     .corazones {
       position: fixed;
       width: 100%;
@@ -137,7 +97,6 @@
       }
     }
 
-    /* Botón mejorado */
     .btn-inicio {
       padding: 20px 50px;
       font-size: 28px;
@@ -193,6 +152,7 @@
     }
   </style>
 </head>
+
 <body class="fondo-stitch">
 
   <!-- Corazones flotantes -->
@@ -219,7 +179,57 @@
   </p>
 
   <!-- Botón de inicio -->
-  <a href="inicio.html" class="btn-inicio btn"> 🎉 ¡Ver tu sorpresa! 🎉</a>
+  <a href="inicio.html" class="btn-inicio btn">🎉 ¡Ver tu sorpresa! 🎉</a>
+
+  <!-- Reproductor de música (oculto) -->
+  <audio id="musicaFondo" loop>
+    <source src="bts.mp3/BTS Singing Happy Birthday.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Botón para controlar la música -->
+  <button id="btnMusica" class="control-musica">
+    <span id="iconoMusica">🔊</span>
+  </button>
+
+  <script>
+    // Control de música
+    const musica = document.getElementById('musicaFondo');
+    const btnMusica = document.getElementById('btnMusica');
+    const iconoMusica = document.getElementById('iconoMusica');
+    let musicaReproduciendo = false;
+
+    // Intentar reproducir automáticamente después de 1 segundo
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        musica.volume = 0.6; // Volumen al 60%
+        musica.play().then(() => {
+          musicaReproduciendo = true;
+          iconoMusica.textContent = '🔊';
+          btnMusica.classList.add('reproduciendo');
+        }).catch(() => {
+          // Si el navegador bloquea la reproducción automática
+          musicaReproduciendo = false;
+          iconoMusica.textContent = '🔇';
+          btnMusica.classList.remove('reproduciendo');
+        });
+      }, 1000);
+    });
+
+    // Toggle música al hacer clic en el botón
+    btnMusica.addEventListener('click', () => {
+      if (musicaReproduciendo) {
+        musica.pause();
+        iconoMusica.textContent = '🔇';
+        musicaReproduciendo = false;
+        btnMusica.classList.remove('reproduciendo');
+      } else {
+        musica.play();
+        iconoMusica.textContent = '🔊';
+        musicaReproduciendo = true;
+        btnMusica.classList.add('reproduciendo');
+      }
+    });
+  </script>
 
 </body>
 </html>

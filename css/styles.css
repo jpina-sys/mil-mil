@@ -149,6 +149,57 @@ body.pagina-video::before {
     }
 }
 
+/* Animaciones del botón de música */
+@keyframes aparecerBoton {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulsoSuave {
+    0%, 100% {
+        box-shadow: 
+            0 5px 25px rgba(255,0,153,0.7),
+            0 0 0 0 rgba(255,0,153,0.4);
+    }
+    50% {
+        box-shadow: 
+            0 8px 35px rgba(0,255,255,0.9),
+            0 0 0 10px rgba(0,255,255,0.1);
+    }
+}
+
+@keyframes brilloGiratorio {
+    0% {
+        transform: rotate(45deg) translateY(100%);
+    }
+    100% {
+        transform: rotate(45deg) translateY(-100%);
+    }
+}
+
+@keyframes ondaExpansion {
+    0% {
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+    }
+    100% {
+        width: 180%;
+        height: 180%;
+        opacity: 0;
+    }
+}
+
+@keyframes rotacionContinua {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 /* =====================================================
    TIPOGRAFÍA
 ===================================================== */
@@ -236,6 +287,91 @@ p {
     background: rgba(0,255,255,0.9);
     box-shadow: 0 0 30px rgba(0,255,255,0.8);
     transform: scale(1.1);
+}
+
+/* =====================================================
+   BOTÓN DE CONTROL DE MÚSICA
+===================================================== */
+.control-musica {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff0099, #00ffff);
+    border: none;
+    cursor: pointer;
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        0 5px 25px rgba(255,0,153,0.7),
+        0 0 0 0 rgba(255,0,153,0.4);
+    transition: all 0.3s ease;
+    z-index: 9999;
+    opacity: 0;
+    animation: aparecerBoton 1s ease 5s forwards, pulsoSuave 2s infinite;
+    overflow: hidden;
+}
+
+/* Efecto de brillo interno */
+.control-musica::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255,255,255,0.3),
+        transparent
+    );
+    transform: rotate(45deg);
+    animation: brilloGiratorio 3s linear infinite;
+}
+
+/* Círculos animados cuando está sonando */
+.control-musica.reproduciendo::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border: 3px solid rgba(255,0,153,0.6);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: ondaExpansion 1.5s ease-out infinite;
+}
+
+/* Efecto hover */
+.control-musica:hover {
+    transform: scale(1.15) rotate(10deg);
+    box-shadow: 
+        0 10px 40px rgba(255,0,153,1),
+        0 0 60px rgba(0,255,255,0.8);
+}
+
+/* Efecto cuando está reproduciendo */
+.control-musica.reproduciendo {
+    animation: aparecerBoton 1s ease 5s forwards, 
+               pulsoSuave 2s infinite,
+               rotacionContinua 4s linear infinite;
+}
+
+.control-musica:active {
+    transform: scale(0.95);
+}
+
+/* Ícono con efecto */
+#iconoMusica {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
 }
 
 /* =====================================================
@@ -459,6 +595,15 @@ body::after {
 
     .texto-firma {
         font-size: 18px;
+    }
+
+    /* Botón de música en móviles */
+    .control-musica {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+        bottom: 20px;
+        right: 20px;
     }
 }
 
