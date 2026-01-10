@@ -181,9 +181,9 @@
   <!-- Botón de inicio -->
   <a href="inicio.html" class="btn-inicio btn">🎉 ¡Ver tu sorpresa! 🎉</a>
 
-  <!-- Reproductor de música (oculto) -->
+  <!-- Reproductor de música (oculto) - RUTA CORREGIDA -->
   <audio id="musicaFondo" loop>
-    <source src="bts.mp3/BTS Singing Happy Birthday.mp3" type="audio/mpeg">
+    <source src="musica/BTS Singing Happy Birthday.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Botón para controlar la música -->
@@ -192,11 +192,22 @@
   </button>
 
   <script>
-    // Control de música
+    // Control de música con mejor manejo de errores
     const musica = document.getElementById('musicaFondo');
     const btnMusica = document.getElementById('btnMusica');
     const iconoMusica = document.getElementById('iconoMusica');
     let musicaReproduciendo = false;
+
+    // Verificar que el audio se cargó correctamente
+    musica.addEventListener('error', function(e) {
+      console.error('Error al cargar el audio:', e);
+      console.error('Verifica que el archivo existe en: musica/BTS Singing Happy Birthday.mp3');
+      iconoMusica.textContent = '❌';
+    });
+
+    musica.addEventListener('canplay', function() {
+      console.log('✅ Audio cargado correctamente');
+    });
 
     // Intentar reproducir automáticamente después de 1 segundo
     document.addEventListener('DOMContentLoaded', () => {
@@ -206,8 +217,10 @@
           musicaReproduciendo = true;
           iconoMusica.textContent = '🔊';
           btnMusica.classList.add('reproduciendo');
-        }).catch(() => {
+          console.log('🎵 Música reproduciendo automáticamente');
+        }).catch((error) => {
           // Si el navegador bloquea la reproducción automática
+          console.log('⚠️ Autoplay bloqueado por el navegador. Haz clic en el botón para reproducir.');
           musicaReproduciendo = false;
           iconoMusica.textContent = '🔇';
           btnMusica.classList.remove('reproduciendo');
@@ -222,11 +235,17 @@
         iconoMusica.textContent = '🔇';
         musicaReproduciendo = false;
         btnMusica.classList.remove('reproduciendo');
+        console.log('⏸️ Música pausada');
       } else {
-        musica.play();
-        iconoMusica.textContent = '🔊';
-        musicaReproduciendo = true;
-        btnMusica.classList.add('reproduciendo');
+        musica.play().then(() => {
+          iconoMusica.textContent = '🔊';
+          musicaReproduciendo = true;
+          btnMusica.classList.add('reproduciendo');
+          console.log('▶️ Música reproduciendo');
+        }).catch((error) => {
+          console.error('❌ Error al reproducir:', error);
+          alert('No se pudo reproducir la música. Verifica que el archivo existe.');
+        });
       }
     });
   </script>

@@ -620,3 +620,132 @@ body::after {
         max-width: 80%;
     }
 }
+
+/* =====================================================
+   CORAZONES Y TORTAS FLOTANTES
+===================================================== */
+
+/* Animación de elementos flotantes */
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Corazones flotantes */
+.corazon-flotante {
+    position: fixed;
+    bottom: -50px;
+    font-size: 40px;
+    pointer-events: none;
+    z-index: 10;
+    animation: floatUp linear infinite;
+    filter: drop-shadow(0 0 10px rgba(255,105,180,0.8));
+}
+
+/* Diferentes posiciones y velocidades para corazones */
+.corazon-flotante:nth-child(1) {
+    left: 10%;
+    animation-duration: 10s;
+    animation-delay: 0s;
+}
+
+.corazon-flotante:nth-child(2) {
+    left: 25%;
+    animation-duration: 12s;
+    animation-delay: 2s;
+    font-size: 35px;
+}
+
+.corazon-flotante:nth-child(3) {
+    left: 40%;
+    animation-duration: 14s;
+    animation-delay: 4s;
+    font-size: 45px;
+}
+
+.corazon-flotante:nth-child(4) {
+    left: 55%;
+    animation-duration: 11s;
+    animation-delay: 1s;
+}
+
+.corazon-flotante:nth-child(5) {
+    left: 70%;
+    animation-duration: 13s;
+    animation-delay: 3s;
+    font-size: 38px;
+}
+
+.corazon-flotante:nth-child(6) {
+    left: 85%;
+    animation-duration: 15s;
+    animation-delay: 5s;
+}
+
+/* Tortas flotantes */
+.torta-flotante {
+    position: fixed;
+    bottom: -50px;
+    font-size: 50px;
+    pointer-events: none;
+    z-index: 10;
+    animation: floatUp linear infinite;
+    filter: drop-shadow(0 0 15px rgba(255,182,193,0.9));
+}
+
+/* Diferentes posiciones y velocidades para tortas */
+.torta-flotante:nth-child(7) {
+    left: 15%;
+    animation-duration: 16s;
+    animation-delay: 1.5s;
+}
+
+.torta-flotante:nth-child(8) {
+    left: 35%;
+    animation-duration: 18s;
+    animation-delay: 3.5s;
+    font-size: 45px;
+}
+
+.torta-flotante:nth-child(9) {
+    left: 50%;
+    animation-duration: 17s;
+    animation-delay: 5.5s;
+    font-size: 55px;
+}
+
+.torta-flotante:nth-child(10) {
+    left: 65%;
+    animation-duration: 19s;
+    animation-delay: 2.5s;
+}
+
+.torta-flotante:nth-child(11) {
+    left: 80%;
+    animation-duration: 20s;
+    animation-delay: 4.5s;
+    font-size: 48px;
+}
+
+/* Responsive para flotantes */
+@media (max-width: 768px) {
+    .corazon-flotante {
+        font-size: 30px;
+    }
+    
+    .torta-flotante {
+        font-size: 35px;
+    }
+}
